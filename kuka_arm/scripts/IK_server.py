@@ -153,23 +153,24 @@ def handle_calculate_IK(req):
             theta5 = atan2(sqrt(pow(R3_6[0,2],2) + pow(R3_6[2,2],2)), R3_6[1,2]) 
             theta6 = atan2(-R3_6[1,1],R3_6[1,0])
         
-            # Calculate magnitude of position error
-            FK = T0_G.evalf(subs={q1: theta1, q2: theta2, q3: theta3, q4: theta4, q5: theta5, q6: theta6})
-            your_ee = [FK[0,3],FK[1,3],FK[2,3]]
-            error = sqrt(pow(p[0]-your_ee[0],2) + pow(p[1]-your_ee[1],2) + pow(p[2]-your_ee[2],2))
+            # Uncomment the below to calculate magnitude of position error
+            #FK = T0_G.evalf(subs={q1: theta1, q2: theta2, q3: theta3, q4: theta4, q5: theta5, q6: theta6})
+            #your_ee = [FK[0,3],FK[1,3],FK[2,3]]
+            #error = sqrt(pow(p[0]-your_ee[0],2) + pow(p[1]-your_ee[1],2) + pow(p[2]-your_ee[2],2))
 
             # Populate response for the IK request
             joint_trajectory_point.positions = [theta1, theta2, theta3, theta4, theta5, theta6]
             joint_trajectory_list.append(joint_trajectory_point)
-            joint_trajectory_errors.append(error)
+            #joint_trajectory_errors.append(error) # Uncomment to create list of error magnitudes
 
         rospy.loginfo("length of Joint Trajectory List: %s" % len(joint_trajectory_list))
         
         # Uncomment below to plot magnitude of errors of requested pose before executing motion; must exit before continuing
-        plt.plot(joint_trajectory_errors)
-        plt.ylabel('Error, m')
-        plt.xlabel('Pose')
-        plt.show()
+        #plt.plot(joint_trajectory_errors)
+        #plt.ylabel('Error, m')
+        #plt.xlabel('Pose')
+        #plt.title('Inverse Kinematics Errors')
+        #plt.show()
         return CalculateIKResponse(joint_trajectory_list)
 
 
