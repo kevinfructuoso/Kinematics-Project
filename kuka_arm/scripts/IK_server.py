@@ -128,6 +128,7 @@ def handle_calculate_IK(req):
      
             # Compensate for rotation discrepancy between DH parameters and Gazebo
             Rrpy = Rrpy_pre.evalf(subs={rpy1: roll, rpy2: pitch, rpy3: yaw})
+            
             #calculate wrist center
             wc = p - 0.303*Rrpy[:,2]
 
