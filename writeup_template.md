@@ -17,13 +17,13 @@
 
 [//]: # (Image References)
 
-[image1]: ./misc_images/misc3.png
-[image2]: ./misc_images/forward_kinematics_reference_frames.png
-[image3]: ./misc_images/pose_middle_left_to_bin.png
-[image4]: ./misc_images/pose_middle_left.png
-[image5]: ./misc_images/pose_error_upper_right_to_bin.png
-[image6]: ./misc_images/pose_error_upper_right.png
-[image7]: ./misc_images/kuka_project.gif
+[image1]: ./misc_img_vids_gifs/misc3.png
+[image2]: ./misc_img_vids_gifs/forward_kinematics_reference_frames.png
+[image3]: ./misc_img_vids_gifs/pose_middle_left_to_bin.png
+[image4]: ./misc_img_vids_gifs/pose_middle_left.png
+[image5]: ./misc_img_vids_gifs/pose_error_upper_right_to_bin.png
+[image6]: ./misc_img_vids_gifs/pose_error_upper_right.png
+[image7]: ./misc_img_vids_gifs/kuka_project.gif
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -127,10 +127,14 @@ The IK_server.py implements the above analysis to compute the inverse kinematics
 
 With the above analysis and techniques, the Kuka arm was able to successfully complete 10/10 pick and place trials. The tests can be seen in the .gif below.
 
+<p align="center">
+  <img width="460" height="300" src="./misc_img_vids_gifs/kuka_project.gif">
+</p>
+
 ![alt text][image7]
 
-The magnitude of the position error was calculated using forward kinematics from the solved joint angles. The calculations of this project has a consistent position error of approximately 1 mm. The below figures are examples of the plotted errors for indivdual motions. The error calculations are commented out in the final submission in order to optimize the execution time of the code.
+The magnitude of the position error was calculated using forward kinematics from the solved joint angles. The calculations of this project has a consistent position error of approximately 1 mm. The below figure is an example of the plotted errors for indivdual motions. The error calculations are commented out in the final submission in order to optimize the execution time of the code.
 
-![alt text][image3]![alt text][image4]![alt text][image5]![alt text][image6]
+![alt text][image3]
 
 One way to improve the project is to optimize the motions between poses. As can be seen in the .gif, there is some wasted motion where the arm will rotate more than necessary to reach a position. Logic could be added to be smarter about the solved angles to complete the poses since there are multiple viable solutions. This would also optimize the execution time of each test run as well.
