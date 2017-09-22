@@ -128,10 +128,9 @@ The IK_server.py implements the above analysis to compute the inverse kinematics
 With the above analysis and techniques, the Kuka arm was able to successfully complete 10/10 pick and place trials. The tests can be seen in the .gif below.
 
 <p align="center">
-  <img width="460" height="300" src="./misc_img_vids_gifs/kuka_project.gif">
+  <img src="./misc_img_vids_gifs/kuka_project.gif">
 </p>
 
-![alt text][image7]
 
 The magnitude of the position error was calculated using forward kinematics from the solved joint angles. The calculations of this project has a consistent position error of approximately 1 mm. The below figure is an example of the plotted errors for indivdual motions. The error calculations are commented out in the final submission in order to optimize the execution time of the code.
 
