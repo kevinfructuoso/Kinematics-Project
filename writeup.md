@@ -79,36 +79,33 @@ Links   |alpha(i-1)|  a(i-1) |  d(i-1) | theta(i)
 
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
-Using the defined DH parameter table from the above section, each individual transformation matrix can be defined. 
+Using the defined DH parameter table from the above section, each individual transformation matrix can be defined in terms of the joint angles. The individual transform from joint 6 to the gripper does not involve a joint angle as the gripper is essentially a member of link 6.
 
 <p align="center">
-#### T0_1
+  <img src="./misc_img_vids_gifs/T0_1.png">
+</p>
 
-    <img src="./misc_img_vids_gifs/T0_1.png">
-
-  #### T1_2
-
+<p align="center">
   <img src="./misc_img_vids_gifs/T1_2.png">
+</p>
 
-  #### T2_3
-
+<p align="center">
   <img src="./misc_img_vids_gifs/T2_3.png">
+</p>
 
-  #### T3_4
-
+<p align="center">
   <img src="./misc_img_vids_gifs/T3_4.png">
+</p>
 
-  #### T4_5
-
+<p align="center">
   <img src="./misc_img_vids_gifs/T4_5.png">
+</p>
 
-  #### T5_6
-
+<p align="center">
   <img src="./misc_img_vids_gifs/T5_6.png">
+</p>
 
-
-  #### T6_G
-
+<p align="center">
   <img src="./misc_img_vids_gifs/T6_G.png">
 </p>
 
