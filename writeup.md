@@ -140,7 +140,7 @@ The image below helps visualize joint angles 2 and 3. Using some fancy geometry 
 Once joint angles 1-3 are found, they can be used to generate the equations to solve for joint angles 4-6. To isolate equations for joints 4-6, the rotation matrix from link 3 to link 6 must be derived. In order to simplify down to joint angles 4-6, the recently solved angles 1-3 can be substituted in the following equation.
 
 <p align="center">
-  <img src="./misc_img_vids_gifs/rotations_3_6_eqn.png">
+  <img src="./misc_img_vids_gifs/rotation_3_6_eqn.png">
 </p>
 
 The result is a matrix of equations that make up the rotation matrix from link 3 to link 6. That 3x3 matrix is shown below. 
