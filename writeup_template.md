@@ -17,13 +17,8 @@
 
 [//]: # (Image References)
 
-[image1]: ./misc_img_vids_gifs/misc3.png
-[image2]: ./misc_img_vids_gifs/forward_kinematics_reference_frames.png
-[image3]: ./misc_img_vids_gifs/pose_middle_left_to_bin.png
-[image4]: ./misc_img_vids_gifs/pose_middle_left.png
-[image5]: ./misc_img_vids_gifs/pose_error_upper_right_to_bin.png
-[image6]: ./misc_img_vids_gifs/pose_error_upper_right.png
-[image7]: ./misc_img_vids_gifs/kuka_project.gif
+[image1]: ./misc_img_vids_gifs/forward_kinematics_reference_frames.png
+
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -42,7 +37,7 @@ The first step is to define the reference frames of the kuka arm. For purposes o
 
 The below image displays the reference frames chosen for this analysis and code implementation. The last three joints (4, 5, and 6) form a spherical wrist. Frames 4, 5, and 6 will all be centered at the wrist center. This is required to be able to obtain an analytical solution to the Inverse Kinematics equations for the Kuka arm.
 
-![alt text][image2]
+![alt text][image1]
 
 Using these reference frames, the non-zero DH parameter table can be derived, as shown below, where G is the gripper frame.
 
@@ -85,39 +80,91 @@ Links   |alpha(i-1)|  a(i-1) |  d(i-1) | theta(i)
 #### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
 Using the defined DH parameter table from the above section, each individual transformation matrix can be defined. 
-/*7 tables...*/
 
+<p align="center">
+#### T0_1
+
+    <img src="./misc_img_vids_gifs/T0_1.png">
+
+  #### T1_2
+
+  <img src="./misc_img_vids_gifs/T1_2.png">
+
+  #### T2_3
+
+  <img src="./misc_img_vids_gifs/T2_3.png">
+
+  #### T3_4
+
+  <img src="./misc_img_vids_gifs/T3_4.png">
+
+  #### T4_5
+
+  <img src="./misc_img_vids_gifs/T4_5.png">
+
+  #### T5_6
+
+  <img src="./misc_img_vids_gifs/T5_6.png">
+
+
+  #### T6_G
+
+  <img src="./misc_img_vids_gifs/T6_G.png">
+</p>
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
 The position of the wrist center can be determined given the position of the gripper according to the following equation. The wrist center will be used to determine the first three joint angles 1, 2, and 3. Note that the orientation of the gripper must be corrected with respect to the base link.
 
-*equation here!*
+<p align="center">
+  <img src="./misc_img_vids_gifs/wrist_center_eqn.png">
+</p>
 
 After solving for the wrist center position from the above equation, joint angle 1 can be derived by the equation:
 
-*equation here!*
+<p align="center">
+  <img src="./misc_img_vids_gifs/theta_1_eqn.png">
+</p>
 
-The image below helps visualize joint angles 2 and 3. Using some fancy geometry skills, the below equations can be determined for joint angles 2 and 3.
+The image below helps visualize joint angles 2 and 3. Using some fancy geometry skills, the below equations can be determined for joint angles 2 and 3. Note that joint angle 3 is adjusted due to the slight sag in link 3 from the reference frame designation.
 
-![alt text][image1]
-*equation here!*
+<p align="center">
+  <img src="./misc_img_vids_gifs/theta_2_eqn.png">
+</p>
+
+<p align="center">
+  <img src="./misc_img_vids_gifs/theta_3_eqn.png">
+</p>
+
+<p align="center">
+  <img src="./misc_img_vids_gifs/misc3.png">
+</p>
 
 Once joint angles 1-3 are found, they can be used to generate the equations to solve for joint angles 4-6. To isolate equations for joints 4-6, the rotation matrix from link 3 to link 6 must be derived. In order to simplify down to joint angles 4-6, the recently solved angles 1-3 can be substituted in the following equation.
 
-*equation here!* 
+<p align="center">
+  <img src="./misc_img_vids_gifs/rotations_3_6_eqn.png">
+</p>
 
-The result is a matrix of equations that make up the rotation matrix from link 3 to link 6. That matrix is shown below.
+The result is a matrix of equations that make up the rotation matrix from link 3 to link 6. That 3x3 matrix is shown below. 
 
-*insert matrix*
+<p align="center">
+  <img src="./misc_img_vids_gifs/R3_6.png">
+</p>
 
-By definition, the product of individual rotations between respective links must be equal to the the overall pose rotation of the gripper link. Therefore:
+By definition, the product of individual rotations between respective links (R0_6) must be equal to the the overall pose rotation of the gripper link. By substituting the gripper correction matrix and  the solved joint angles 1-3, the result is the rotation matrix from link 3 to link 6 solved as constants. By setting the matrix of equations equal to these constants, the below equations can be derived to solve for joint angles 4-6. Note that joint angle 5 could be solved for with a simple inverse sine or cosine. However, there are two possible solutions to those equaitons while using an inverse tangent will always yield one solution.
 
-*equation here!*
+<p align="center">
+  <img src="./misc_img_vids_gifs/theta_4_eqn.png">
+</p>
 
-By substituting the gripper correction matrix and  the solved joint angles 1-3, the result is the rotation matrix from link 3 to link 6 solved as constants. By setting the matrix of equations equal to these constants, the below equations can be derived to solve for joint angles 4-6.
+<p align="center">
+  <img src="./misc_img_vids_gifs/theta_5_eqn.png">
+</p>
 
-*last equations here!* 
+<p align="center">
+  <img src="./misc_img_vids_gifs/theta_6_eqn.png">
+</p>
 
 ### Project Implementation
 
@@ -131,9 +178,10 @@ With the above analysis and techniques, the Kuka arm was able to successfully co
   <img src="./misc_img_vids_gifs/kuka_project.gif">
 </p>
 
-
 The magnitude of the position error was calculated using forward kinematics from the solved joint angles. The calculations of this project has a consistent position error of approximately 1 mm. The below figure is an example of the plotted errors for indivdual motions. The error calculations are commented out in the final submission in order to optimize the execution time of the code.
 
-![alt text][image3]
+<p align="center">
+  <img src="./misc_img_vids_gifs/pose_middle_left_to_bin.png">
+</p>
 
 One way to improve the project is to optimize the motions between poses. As can be seen in the .gif, there is some wasted motion where the arm will rotate more than necessary to reach a position. Logic could be added to be smarter about the solved angles to complete the poses since there are multiple viable solutions. This would also optimize the execution time of each test run as well.
